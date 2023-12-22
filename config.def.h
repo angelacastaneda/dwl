@@ -124,25 +124,35 @@ static const char *menucmd[] = { "bemenu-run", NULL };
 static const char *browser[] = { "firefox", NULL };
 static const char *emacs[] = { "emacs", NULL };
 
+/* tui */
+static const char *top[] = { "foot", "-e", "htop", NULL };
+static const char *mail[] = { "foot", "-e", "aerc", NULL };
+static const char *news[] = { "foot", "-e", "newsraft", NULL };
+static const char *emacsnw[] = { "foot", "-e", "emacs", "-nw", NULL };
+
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_w,          spawn,          {.v = browser} },
 	{ MODKEY,                    XKB_KEY_e,          spawn,          {.v = emacs} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_e,          spawn,          {.v = emacsnw} },
+	{ MODKEY,                    XKB_KEY_h,          spawn,          {.v = top} },
+	{ MODKEY,                    XKB_KEY_n,          spawn,          {.v = news} },
+	{ MODKEY,                    XKB_KEY_m,          spawn,          {.v = mail} },
 	{ MODKEY,                    XKB_KEY_d,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
 	{ MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
 	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
 	// { MODKEY,                    XKB_KEY_d,          incnmaster,     {.i = -1} },
-	{ MODKEY,                    XKB_KEY_h,          setmfact,       {.f = -0.05} },
+	// { MODKEY,                    XKB_KEY_h,          setmfact,       {.f = -0.05} },
 	{ MODKEY,                    XKB_KEY_l,          setmfact,       {.f = +0.05} },
 	// { MODKEY,                    XKB_KEY_Return,     zoom,           {0} },
 	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
+	// { MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
 	// { MODKEY,                    XKB_KEY_e,         togglefullscreen, {0} },
