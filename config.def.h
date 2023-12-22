@@ -130,6 +130,10 @@ static const char *mail[] = { "foot", "-e", "aerc", NULL };
 static const char *news[] = { "foot", "-e", "newsraft", NULL };
 static const char *emacsnw[] = { "foot", "-e", "emacs", "-nw", NULL };
 
+/* scripts */
+static const char *pass[] = { "passmenu", NULL };
+static const char *mailsync[] = { "mbsync", "-a", NULL };
+
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
@@ -139,6 +143,8 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_h,          spawn,          {.v = top} },
 	{ MODKEY,                    XKB_KEY_n,          spawn,          {.v = news} },
 	{ MODKEY,                    XKB_KEY_m,          spawn,          {.v = mail} },
+	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = pass} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_m,          spawn,          {.v = mailsync} },
 	{ MODKEY,                    XKB_KEY_d,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
