@@ -133,6 +133,7 @@ static const char *emacsnw[] = { "foot", "-e", "emacs", "-nw", NULL };
 /* scripts */
 static const char *pass[] = { "passmenu", NULL };
 static const char *mailsync[] = { "mbsync", "-a", NULL };
+static const char *yubimenu[] = { "yubimenu", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -145,6 +146,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_m,          spawn,          {.v = mail} },
 	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = pass} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_M,          spawn,          {.v = mailsync} },
+	{ MODKEY,                    XKB_KEY_y,          spawn,          {.v = yubimenu} },
 	{ MODKEY,                    XKB_KEY_d,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
 	{ MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
