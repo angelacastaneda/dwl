@@ -134,11 +134,19 @@ static const char *emacsnw[] = { "foot", "-e", "emacs", "-nw", NULL };
 static const char *pass[] = { "passmenu", NULL };
 static const char *mailsync[] = { "mbsync", "-a", NULL };
 static const char *yubimenu[] = { "yubimenu", NULL };
+static const char *volume_raise[] = { "pamixer", "-i", "5", NULL };
+static const char *volume_lower[] = { "pamixer", "-d", "5", NULL };
+static const char *volume_toggle[] = { "pamixer", "-t", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_w,          spawn,          {.v = browser} },
+	{ 0,      XKB_KEY_XF86AudioRaiseVolume,          spawn,          {.v = volume_raise} },
+	{ MODKEY,                XKB_KEY_equal,          spawn,          {.v = volume_raise} },
+	{ 0,      XKB_KEY_XF86AudioLowerVolume,          spawn,          {.v = volume_lower} },
+	{ MODKEY,                XKB_KEY_minus,          spawn,          {.v = volume_lower} },
+	{ 0,             XKB_KEY_XF86AudioMute,          spawn,          {.v = volume_toggle} },
 	{ MODKEY,                    XKB_KEY_e,          spawn,          {.v = emacs} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_E,          spawn,          {.v = emacsnw} },
 	{ MODKEY,                    XKB_KEY_h,          spawn,          {.v = top} },
