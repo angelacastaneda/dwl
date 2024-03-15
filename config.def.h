@@ -123,37 +123,49 @@ static const char *menucmd[] = { "wmenu_run", NULL };
 /* gui */
 static const char *browser[] = { "firefox", NULL };
 static const char *emacs[] = { "emacs", NULL };
+static const char *matrix[] = { "element-desktop", NULL };
 
 /* tui */
 static const char *top[] = { "foot", "-e", "htop", NULL };
 static const char *mail[] = { "foot", "-e", "aerc", NULL };
 static const char *news[] = { "foot", "-e", "newsraft", NULL };
+static const char *irc[] = { "foot", "-e", "senpai", NULL };
+static const char *music[] = { "foot", "-e", "ncmpcpp", NULL };
 static const char *emacsnw[] = { "foot", "-e", "emacs", "-nw", NULL };
 
 /* scripts */
-static const char *pass[] = { "passmenu", NULL };
+static const char *passmenu[] = { "passmenu", NULL };
+static const char *usermenu[] = { "usermenu", NULL };
+static const char *nmmenu[] = { "networkmanager_dmenu", NULL };
 static const char *mailsync[] = { "mbsync", "-a", NULL };
 static const char *yubimenu[] = { "yubimenu", NULL };
 static const char *volume_raise[] = { "pamixer", "-i", "5", NULL };
 static const char *volume_lower[] = { "pamixer", "-d", "5", NULL };
 static const char *volume_toggle[] = { "pamixer", "-t", NULL };
+static const char *music_pause[] = { "mpc", "toggle", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                    XKB_KEY_w,          spawn,          {.v = browser} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,          spawn,          {.v = nmmenu} },
 	{ 0,      XKB_KEY_XF86AudioRaiseVolume,          spawn,          {.v = volume_raise} },
 	{ MODKEY,                XKB_KEY_equal,          spawn,          {.v = volume_raise} },
 	{ 0,      XKB_KEY_XF86AudioLowerVolume,          spawn,          {.v = volume_lower} },
 	{ MODKEY,                XKB_KEY_minus,          spawn,          {.v = volume_lower} },
 	{ 0,             XKB_KEY_XF86AudioMute,          spawn,          {.v = volume_toggle} },
-	{ MODKEY,                    XKB_KEY_e,          spawn,          {.v = emacs} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_E,          spawn,          {.v = emacsnw} },
+	{ MODKEY,                    XKB_KEY_g,          spawn,          {.v = emacs} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_G,          spawn,          {.v = emacsnw} },
 	{ MODKEY,                    XKB_KEY_h,          spawn,          {.v = top} },
 	{ MODKEY,                    XKB_KEY_n,          spawn,          {.v = news} },
-	{ MODKEY,                    XKB_KEY_m,          spawn,          {.v = mail} },
-	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = pass} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_M,          spawn,          {.v = mailsync} },
+	{ MODKEY,                    XKB_KEY_c,          spawn,          {.v = irc} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_C,          spawn,          {.v = matrix} },
+	{ MODKEY,                    XKB_KEY_e,          spawn,          {.v = mail} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_e,          spawn,          {.v = mailsync} },
+	{ MODKEY,                    XKB_KEY_m,          spawn,          {.v = music} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_M,          spawn,          {.v = music_pause} },
+	{ MODKEY,                    XKB_KEY_p,          spawn,          {.v = passmenu} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_P,          spawn,          {.v = usermenu} },
 	{ MODKEY,                    XKB_KEY_y,          spawn,          {.v = yubimenu} },
 	{ MODKEY,                    XKB_KEY_d,          spawn,          {.v = menucmd} },
 	{ MODKEY,                    XKB_KEY_Return,     spawn,          {.v = termcmd} },
