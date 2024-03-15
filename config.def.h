@@ -55,7 +55,7 @@ static const struct xkb_rule_names xkb_rules = {
 	*/
 	.layout = "us",
 	.variant = "dvorak",
-	.options = NULL,
+	.options = "compose:rctrl",
 };
 
 static const int repeat_rate = 50;
