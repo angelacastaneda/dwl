@@ -706,7 +706,7 @@ void buffer_end_data_ptr_access(struct wlr_buffer *buffer) {
 void
 buttonpress(struct wl_listener *listener, void *data)
 {
-	unsigned int i = 0, x = 0;
+	unsigned int i = 0, x = 0, occ = 0;
 	unsigned int click;
 	struct wlr_pointer_button_event *event = data;
 	struct wlr_keyboard *keyboard;
@@ -727,9 +727,18 @@ buttonpress(struct wl_listener *listener, void *data)
 	if ((node = wlr_scene_node_at(&layers[LyrBottom]->node, cursor->x, cursor->y, NULL, NULL)) && 
 		(buffer = wlr_scene_buffer_from_node(node)) && buffer == selmon->scene_buffer) {
 		x = selmon->m.x;
-		do
-			x += TEXTW(tags[i]);
-		while (cursor->x >= x && ++i < LENGTH(tags));
+
+		wl_list_for_each(c, &clients, link) {
+			if (c->mon != selmon)
+				continue;
+			occ |= c->tags == TAGMASK ? 0 : c->tags;
+		}
+		do {
+			/* Do not reserve space for vacant tags */
+			if (!(occ & 1 << i || selmon->tagset[selmon->seltags] & 1 << i))
+				continue;
+		 	x += TEXTW(tags[i]);
+		} while (cursor->x >= x && ++i < LENGTH(tags));
 		if (i < LENGTH(tags)) {
 			click = ClkTagBar;
 			arg.ui = 1 << i;
@@ -1527,13 +1536,16 @@ drawbar(Monitor *mon)
 	wl_list_for_each(c, &clients, link) {
 		if (c->mon != mon)
 			continue;
-		occ |= c->tags;
+		occ |= c->tags == TAGMASK ? 0 : c->tags;
 		if (c->isurgent)
 			urg |= c->tags;
 	}
 	c = focustop(mon);
 	x = 0;
 	for (i = 0; i < LENGTH(tags); i++) {
+		/* Do not draw vacant tags */
+		if(!(occ & 1 << i || mon->tagset[mon->seltags] & 1 << i))
+			continue;
 		w = TEXTW(tags[i]);
 		sel = mon->tagset[mon->seltags] & 1 << i;
 
@@ -1541,10 +1553,6 @@ drawbar(Monitor *mon)
 			urg & 1 << i ? &selbarfg : (sel ? &selbarbg : &normbarbg));
 		draw_text(pix, x, 0, w, mon->b.height, lrpad / 2, tags[i],
 			urg & 1 << i ? &selbarbg : (sel ? &selbarfg : &normbarfg));
-
-		if (occ & 1 << i)
-			draw_rect(pix, x + boxs, boxs, boxw, boxw,
-				sel, urg & 1 << i ? &selbarbg : (sel ? &selbarfg : &normbarfg));
 
 		x += w;
 	}
