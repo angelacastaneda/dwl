@@ -34,7 +34,7 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "wbg", "/path/to/your/image", NULL,
+        "wbg", "/home/angel/.config/bg", NULL,
         NULL /* terminate */
 };
 
