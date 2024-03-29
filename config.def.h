@@ -17,6 +17,8 @@ static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You ca
 /* tagging - TAGCOUNT must be no greater than 31 */
 #define TAGCOUNT (9)
 
+#define TERM "footclient"
+
 /* logging */
 static int log_level = WLR_ERROR;
 
@@ -117,7 +119,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[] = { "foot", NULL };
+static const char *termcmd[] = { TERM, NULL };
 static const char *menucmd[] = { "wmenu_run", NULL };
 
 /* custom commands */
@@ -127,12 +129,12 @@ static const char *emacs[] = { "emacs", NULL };
 static const char *matrix[] = { "element-desktop", NULL };
 
 /* tui */
-static const char *top[] = { "foot", "-e", "htop", NULL };
-static const char *mail[] = { "foot", "-e", "aerc", NULL };
-static const char *news[] = { "foot", "-e", "newsraft", NULL };
-static const char *irc[] = { "foot", "-e", "senpai", NULL };
-static const char *music[] = { "foot", "-e", "ncmpcpp", NULL };
-static const char *emacsnw[] = { "foot", "-e", "emacs", "-nw", NULL };
+static const char *top[] = { TERM, "-e", "htop", NULL };
+static const char *mail[] = { TERM, "-e", "aerc", NULL };
+static const char *news[] = { TERM, "-e", "newsraft", NULL };
+static const char *irc[] = { TERM, "-e", "senpai", NULL };
+static const char *music[] = { TERM, "-e", "ncmpcpp", NULL };
+static const char *emacsnw[] = { TERM, "-e", "emacs", "-nw", NULL };
 
 /* scripts */
 static const char *passmenu[] = { "passmenu", NULL };
